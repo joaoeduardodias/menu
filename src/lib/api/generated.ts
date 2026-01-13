@@ -5,1074 +5,71 @@
  * API documentation for Menu digital
  * OpenAPI spec version: 1.0.0
  */
-import { kyFetch } from '../../utils/ky-client';
-export type PostProductsBody = {
-  /** @minLength 1 */
-  name: string;
-  /** @minLength 1 */
-  slug: string;
-  /** @minLength 1 */
-  description: string;
-  /**
-   * @maximum 9007199254740991
-   * @exclusiveMinimum
-   */
-  price: number;
-  image: string;
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  categoryId: string;
-  popular?: boolean;
-  available?: boolean;
-};
-
-export type PostProducts201 = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  productId: string;
-};
-
-export type GetProductsParams = {
-/**
- * @minimum 1
- * @maximum 9007199254740991
- */
-page?: number;
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @pattern ^[cC][^\s-]{8,}$
- */
-categoryId?: string;
-popular?: boolean;
-available?: boolean;
-};
-
-export type GetProducts200ProductsItem = {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  image: string;
-  popular: boolean;
-  available: boolean;
-};
-
-export type GetProducts200 = {
-  products: GetProducts200ProductsItem[];
-  total: number;
-  page: number;
-  limit: number;
-};
-
-export type GetProductsSlug200 = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  image: string;
-  popular: boolean;
-  available: boolean;
-  categoryId: string;
-};
-
-export type PutProductsIdBody = {
-  /** @minLength 1 */
-  name?: string;
-  /** @minLength 1 */
-  slug?: string;
-  description?: string;
-  /**
-   * @maximum 9007199254740991
-   * @exclusiveMinimum
-   */
-  price?: number;
-  image?: string;
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  categoryId?: string;
-  popular?: boolean;
-  available?: boolean;
-};
-
-/**
- * @nullable
- */
-export type PutProductsId204 = typeof PutProductsId204[keyof typeof PutProductsId204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutProductsId204 = {
-} as const;
-
-/**
- * @nullable
- */
-export type DeleteProductsId204 = typeof DeleteProductsId204[keyof typeof DeleteProductsId204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const DeleteProductsId204 = {
-} as const;
-
-export type PostOrdersBodyStatus = typeof PostOrdersBodyStatus[keyof typeof PostOrdersBodyStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostOrdersBodyStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type PostOrdersBodyPaymentMethod = typeof PostOrdersBodyPaymentMethod[keyof typeof PostOrdersBodyPaymentMethod];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostOrdersBodyPaymentMethod = {
-  CASH: 'CASH',
-  PIX: 'PIX',
-  CREDIT_CARD: 'CREDIT_CARD',
-  DEBIT_CARD: 'DEBIT_CARD',
-} as const;
-
-export type PostOrdersBodyItemsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  productId: string;
-  /**
-   * @minimum 1
-   * @maximum 9007199254740991
-   */
-  quantity: number;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   */
-  unitPrice: number;
-};
-
-export type PostOrdersBody = {
-  status?: PostOrdersBodyStatus;
-  paymentMethod: PostOrdersBodyPaymentMethod;
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  addressId: string;
-  couponCode?: string;
-  /**
-   * @minimum 0
-   * @maximum 9007199254740991
-   */
-  deliveryFee?: number;
-  /** @minItems 1 */
-  items: PostOrdersBodyItemsItem[];
-};
-
-export type PostOrders201 = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  orderId: string;
-};
-
-export type GetOrdersParams = {
-page?: string;
-limit?: string;
-status?: GetOrdersStatus;
-search?: string;
-/**
- * @pattern ^[cC][^\s-]{8,}$
- */
-customerId?: string;
-startDate?: unknown;
-endDate?: unknown;
-};
-
-export type GetOrdersStatus = typeof GetOrdersStatus[keyof typeof GetOrdersStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrdersStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type GetOrders200OrdersItemStatus = typeof GetOrders200OrdersItemStatus[keyof typeof GetOrders200OrdersItemStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrders200OrdersItemStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type GetOrders200OrdersItemPaymentMethod = typeof GetOrders200OrdersItemPaymentMethod[keyof typeof GetOrders200OrdersItemPaymentMethod];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrders200OrdersItemPaymentMethod = {
-  CASH: 'CASH',
-  PIX: 'PIX',
-  CREDIT_CARD: 'CREDIT_CARD',
-  DEBIT_CARD: 'DEBIT_CARD',
-} as const;
-
-/**
- * @nullable
- */
-export type GetOrders200OrdersItemCustomer = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @nullable */
-  name: string | null;
-  /** @nullable */
-  phone: string | null;
-} | null;
-
-export type GetOrders200OrdersItemItemsItemProduct = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  slug: string;
-};
-
-export type GetOrders200OrdersItemItemsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  quantity: number;
-  unitPrice: number;
-  product: GetOrders200OrdersItemItemsItemProduct;
-};
-
-/**
- * @nullable
- */
-export type GetOrders200OrdersItemAddress = {
-  /** @nullable */
-  number: number | null;
-  /** @nullable */
-  name: string | null;
-  street: string;
-  /** @nullable */
-  complement: string | null;
-  /** @nullable */
-  neighborhood: string | null;
-  city: string;
-  zipCode: string;
-} | null;
-
-export type GetOrders200OrdersItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  orderNumber: number;
-  status: GetOrders200OrdersItemStatus;
-  paymentMethod: GetOrders200OrdersItemPaymentMethod;
-  total: number;
-  itemsCount: number;
-  createdAt: string;
-  updatedAt: string;
-  /** @nullable */
-  customer: GetOrders200OrdersItemCustomer;
-  items: GetOrders200OrdersItemItemsItem[];
-  /** @nullable */
-  address: GetOrders200OrdersItemAddress;
-};
-
-export type GetOrders200Pagination = {
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  page: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  limit: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  total: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-};
-
-export type GetOrders200 = {
-  orders: GetOrders200OrdersItem[];
-  pagination: GetOrders200Pagination;
-};
-
-export type PutOrdersIdBodyPaymentMethod = typeof PutOrdersIdBodyPaymentMethod[keyof typeof PutOrdersIdBodyPaymentMethod];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutOrdersIdBodyPaymentMethod = {
-  CASH: 'CASH',
-  PIX: 'PIX',
-  CREDIT_CARD: 'CREDIT_CARD',
-  DEBIT_CARD: 'DEBIT_CARD',
-} as const;
-
-export type PutOrdersIdBodyStatus = typeof PutOrdersIdBodyStatus[keyof typeof PutOrdersIdBodyStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutOrdersIdBodyStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type PutOrdersIdBodyItemsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  productId: string;
-  /**
-   * @minimum 1
-   * @maximum 9007199254740991
-   */
-  quantity: number;
-  /**
-   * @minimum 1
-   * @maximum 9007199254740991
-   */
-  unitPrice: number;
-};
-
-export type PutOrdersIdBody = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  addressId?: string;
-  paymentMethod?: PutOrdersIdBodyPaymentMethod;
-  /**
-   * @maximum 9007199254740991
-   * @exclusiveMinimum
-   */
-  changeFor?: number;
-  status?: PutOrdersIdBodyStatus;
-  /**
-   * @nullable
-   * @pattern ^[cC][^\s-]{8,}$
-   */
-  couponId?: string | null;
-  items?: PutOrdersIdBodyItemsItem[];
-};
-
-/**
- * @nullable
- */
-export type PutOrdersId204 = typeof PutOrdersId204[keyof typeof PutOrdersId204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutOrdersId204 = {
-} as const;
-
-/**
- * @nullable
- */
-export type DeleteOrdersId204 = typeof DeleteOrdersId204[keyof typeof DeleteOrdersId204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const DeleteOrdersId204 = {
-} as const;
-
-export type GetOrdersId200OrderStatus = typeof GetOrdersId200OrderStatus[keyof typeof GetOrdersId200OrderStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrdersId200OrderStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type GetOrdersId200OrderPaymentMethod = typeof GetOrdersId200OrderPaymentMethod[keyof typeof GetOrdersId200OrderPaymentMethod];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrdersId200OrderPaymentMethod = {
-  CASH: 'CASH',
-  PIX: 'PIX',
-  CREDIT_CARD: 'CREDIT_CARD',
-  DEBIT_CARD: 'DEBIT_CARD',
-} as const;
-
-export type GetOrdersId200OrderItemsItemProduct = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  slug: string;
-};
-
-export type GetOrdersId200OrderItemsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  quantity: number;
-  unitPrice: number;
-  product: GetOrdersId200OrderItemsItemProduct;
-};
-
-export type GetOrdersId200OrderCustomer = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @nullable */
-  name: string | null;
-  /** @nullable */
-  phone: string | null;
-};
-
-export type GetOrdersId200OrderAddress = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  street: string;
-  /** @nullable */
-  number: number | null;
-  /** @nullable */
-  complement: string | null;
-  neighborhood: string;
-  city: string;
-  zipCode: string;
-};
-
-export type GetOrdersId200Order = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  orderNumber: number;
-  status: GetOrdersId200OrderStatus;
-  paymentMethod: GetOrdersId200OrderPaymentMethod;
-  items: GetOrdersId200OrderItemsItem[];
-  itemsCount: number;
-  itemsTotal: number;
-  deliveryFee: number;
-  total: number;
-  createdAt: string;
-  updatedAt: string;
-  customer: GetOrdersId200OrderCustomer;
-  address: GetOrdersId200OrderAddress;
-};
-
-export type GetOrdersId200 = {
-  order: GetOrdersId200Order;
-};
-
-export type GetOrdersCustomerParams = {
-/**
- * @minimum 1
- * @maximum 9007199254740991
- */
-page?: number;
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-status?: GetOrdersCustomerStatus;
-};
-
-export type GetOrdersCustomerStatus = typeof GetOrdersCustomerStatus[keyof typeof GetOrdersCustomerStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrdersCustomerStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type GetOrdersCustomer200OrdersItemStatus = typeof GetOrdersCustomer200OrdersItemStatus[keyof typeof GetOrdersCustomer200OrdersItemStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetOrdersCustomer200OrdersItemStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  PREPARING: 'PREPARING',
-  DELIVERING: 'DELIVERING',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export type GetOrdersCustomer200OrdersItemCustomer = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @nullable */
-  name: string | null;
-};
-
-export type GetOrdersCustomer200OrdersItemItemsItemProduct = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  slug: string;
-};
-
-export type GetOrdersCustomer200OrdersItemItemsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  quantity: number;
-  unitPrice: number;
-  product: GetOrdersCustomer200OrdersItemItemsItemProduct;
-};
-
-export type GetOrdersCustomer200OrdersItemAddress = {
-  street: string;
-  /** @nullable */
-  number: number | null;
-  /** @nullable */
-  complement: string | null;
-  neighborhood: string;
-  city: string;
-  zipCode: string;
-};
-
-export type GetOrdersCustomer200OrdersItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  status: GetOrdersCustomer200OrdersItemStatus;
-  createdAt: string;
-  updatedAt: string;
-  total: number;
-  itemsCount: number;
-  customer: GetOrdersCustomer200OrdersItemCustomer;
-  items: GetOrdersCustomer200OrdersItemItemsItem[];
-  address: GetOrdersCustomer200OrdersItemAddress;
-};
-
-export type GetOrdersCustomer200Pagination = {
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  page: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  limit: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  total: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-};
-
-export type GetOrdersCustomer200 = {
-  orders: GetOrdersCustomer200OrdersItem[];
-  pagination: GetOrdersCustomer200Pagination;
-};
-
-export type PostUserBody = {
-  /** @minLength 1 */
-  name: string;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @minLength 6 */
-  password: string;
-};
-
-export type PostUser201 = {
-  token: string;
-};
-
-export type PutUserBody = {
-  name?: string;
-  phone?: string;
-};
-
-/**
- * @nullable
- */
-export type PutUser204 = typeof PutUser204[keyof typeof PutUser204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutUser204 = {
-} as const;
-
-export type GetProfile200UserRole = typeof GetProfile200UserRole[keyof typeof GetProfile200UserRole];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetProfile200UserRole = {
-  ADMIN: 'ADMIN',
-  CUSTOMER: 'CUSTOMER',
-} as const;
-
-export type GetProfile200User = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  /** @nullable */
-  name: string | null;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @nullable */
-  phone: string | null;
-  role: GetProfile200UserRole;
-};
-
-export type GetProfile200 = {
-  user: GetProfile200User;
-};
-
-export type GetUsersParams = {
-role?: GetUsersRole;
-page?: string;
-limit?: string;
-search?: string;
-};
-
-export type GetUsersRole = typeof GetUsersRole[keyof typeof GetUsersRole];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetUsersRole = {
-  ADMIN: 'ADMIN',
-  CUSTOMER: 'CUSTOMER',
-} as const;
-
-export type GetUsers200UsersItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  /** @nullable */
-  name: string | null;
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @nullable */
-  phone: string | null;
-  /** @nullable */
-  city: string | null;
-  joinDate: string;
-};
-
-export type GetUsers200Pagination = {
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  page: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  limit: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  total: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-};
-
-export type GetUsers200 = {
-  users: GetUsers200UsersItem[];
-  pagination: GetUsers200Pagination;
-};
-
-export type PostPasswordResetBody = {
-  code: string;
-  /** @minLength 6 */
-  password: string;
-};
-
-/**
- * @nullable
- */
-export type PostPasswordReset204 = typeof PostPasswordReset204[keyof typeof PostPasswordReset204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostPasswordReset204 = {
-} as const;
-
-export type PostPasswordRecoverBody = {
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-};
-
-/**
- * @nullable
- */
-export type PostPasswordRecover201 = typeof PostPasswordRecover201[keyof typeof PostPasswordRecover201] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostPasswordRecover201 = {
-} as const;
-
-export type PostSessionsGoogleBody = {
-  code: string;
-};
-
-export type PostSessionsGoogle201 = {
-  token: string;
-};
-
-export type PostSessionsPasswordBody = {
-  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
-  email: string;
-  /** @minLength 6 */
-  password: string;
-};
-
-export type PostSessionsPassword201 = {
-  token: string;
-};
-
-export type PostCartCheckoutBody = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  addressId: string;
-};
-
-export type PostCartCheckout200OrderItemsItemProduct = {
-  id: string;
-  name: string;
-};
-
-export type PostCartCheckout200OrderItemsItem = {
-  product: PostCartCheckout200OrderItemsItemProduct;
-};
-
-/**
- * @nullable
- */
-export type PostCartCheckout200Order = {
-  id: string;
-  items: PostCartCheckout200OrderItemsItem[];
-} | null;
-
-export type PostCartCheckout200 = {
-  /** @nullable */
-  order: PostCartCheckout200Order;
-};
-
-export type PostCouponsBodyType = typeof PostCouponsBodyType[keyof typeof PostCouponsBodyType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostCouponsBodyType = {
-  PERCENT: 'PERCENT',
-  FIXED: 'FIXED',
-} as const;
-
-export type PostCouponsBodyScope = typeof PostCouponsBodyScope[keyof typeof PostCouponsBodyScope];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostCouponsBodyScope = {
-  ALL_PRODUCTS: 'ALL_PRODUCTS',
-  PRODUCTS: 'PRODUCTS',
-} as const;
-
-export type PostCouponsBody = {
-  /** @minLength 1 */
-  code: string;
-  type: PostCouponsBodyType;
-  scope: PostCouponsBodyScope;
-  isActive?: boolean;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   */
-  value: number;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   */
-  minOrderValue?: number;
-  /**
-   * @maximum 9007199254740991
-   * @exclusiveMinimum
-   */
-  maxUses?: number;
-  expiresAt?: unknown;
-  productIds?: string[];
-};
-
-export type PostCoupons201 = {
-  /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
-  couponId: string;
-};
-
-export type GetCouponsParams = {
-page?: string;
-limit?: string;
-};
-
-export type GetCoupons200CouponsItemType = typeof GetCoupons200CouponsItemType[keyof typeof GetCoupons200CouponsItemType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetCoupons200CouponsItemType = {
-  PERCENT: 'PERCENT',
-  FIXED: 'FIXED',
-} as const;
-
-export type GetCoupons200CouponsItemScope = typeof GetCoupons200CouponsItemScope[keyof typeof GetCoupons200CouponsItemScope];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetCoupons200CouponsItemScope = {
-  ALL_PRODUCTS: 'ALL_PRODUCTS',
-  PRODUCTS: 'PRODUCTS',
-} as const;
-
-export type GetCoupons200CouponsItemUsagesItem = {
-  id: string;
-  couponId: string;
-  userId: string;
-  usedAt: string;
-};
-
-export type GetCoupons200CouponsItemProductsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-};
-
-export type GetCoupons200CouponsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  code: string;
-  type: GetCoupons200CouponsItemType;
-  scope: GetCoupons200CouponsItemScope;
-  value: number;
-  /** @nullable */
-  minOrderValue: number | null;
-  /** @nullable */
-  maxUses: number | null;
-  usedCount: number;
-  /** @nullable */
-  expiresAt: string | null;
-  isActive: boolean;
-  createdAt: string;
-  usages: GetCoupons200CouponsItemUsagesItem[];
-  products: GetCoupons200CouponsItemProductsItem[];
-};
-
-export type GetCoupons200Pagination = {
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  page: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  limit: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  total: number;
-  /**
-   * @minimum -9007199254740991
-   * @maximum 9007199254740991
-   */
-  totalPages: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-};
-
-export type GetCoupons200 = {
-  coupons: GetCoupons200CouponsItem[];
-  pagination: GetCoupons200Pagination;
-};
-
-export type PutCouponsIdBodyScope = typeof PutCouponsIdBodyScope[keyof typeof PutCouponsIdBodyScope];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutCouponsIdBodyScope = {
-  ALL_PRODUCTS: 'ALL_PRODUCTS',
-  PRODUCTS: 'PRODUCTS',
-} as const;
-
-/**
- * @nullable
- */
-export type PutCouponsIdBodyExpiresAt = unknown | null;
-
-export type PutCouponsIdBody = {
-  code?: string;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   */
-  value?: number;
-  isActive?: boolean;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   * @nullable
-   */
-  minOrderValue?: number | null;
-  scope?: PutCouponsIdBodyScope;
-  /**
-   * @maximum 9007199254740991
-   * @exclusiveMinimum
-   * @nullable
-   */
-  maxUses?: number | null;
-  /** @nullable */
-  expiresAt?: PutCouponsIdBodyExpiresAt;
-  productIds?: string[];
-};
-
-/**
- * @nullable
- */
-export type PutCouponsId204 = typeof PutCouponsId204[keyof typeof PutCouponsId204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PutCouponsId204 = {
-} as const;
-
-export type GetCouponsId200CouponType = typeof GetCouponsId200CouponType[keyof typeof GetCouponsId200CouponType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetCouponsId200CouponType = {
-  PERCENT: 'PERCENT',
-  FIXED: 'FIXED',
-} as const;
-
-export type GetCouponsId200CouponScope = typeof GetCouponsId200CouponScope[keyof typeof GetCouponsId200CouponScope];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const GetCouponsId200CouponScope = {
-  ALL_PRODUCTS: 'ALL_PRODUCTS',
-  PRODUCTS: 'PRODUCTS',
-} as const;
-
-export type GetCouponsId200CouponUsagesItem = {
-  id: string;
-  couponId: string;
-  userId: string;
-  usedAt: string;
-};
-
-export type GetCouponsId200CouponProductsItem = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-};
-
-export type GetCouponsId200Coupon = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  code: string;
-  type: GetCouponsId200CouponType;
-  scope: GetCouponsId200CouponScope;
-  value: number;
-  /** @nullable */
-  minOrderValue: number | null;
-  /** @nullable */
-  maxUses: number | null;
-  usedCount: number;
-  /** @nullable */
-  expiresAt: string | null;
-  isActive: boolean;
-  createdAt: string;
-  usages: GetCouponsId200CouponUsagesItem[];
-  products: GetCouponsId200CouponProductsItem[];
-};
-
-export type GetCouponsId200 = {
-  coupon: GetCouponsId200Coupon;
-};
-
-export type PostCouponsValidateBody = {
-  code: string;
-  /**
-   * @minimum 0
-   * @exclusiveMinimum
-   */
-  orderTotal: number;
-  /** @minItems 1 */
-  productIds: string[];
-};
-
-export type PostCouponsValidate200 = {
-  discount: number;
-  finalTotal: number;
-};
-
-/**
- * @nullable
- */
-export type PatchCouponsIdStatus204 = typeof PatchCouponsIdStatus204[keyof typeof PatchCouponsIdStatus204] | null;
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PatchCouponsIdStatus204 = {
-} as const;
-
+import type {
+  AuthenticateWithGoogle201,
+  AuthenticateWithGoogleBody,
+  AuthenticateWithPassword201,
+  AuthenticateWithPasswordBody,
+  Checkout200,
+  CheckoutBody,
+  CreateCoupon201,
+  CreateCouponBody,
+  CreateOrder201,
+  CreateOrderBody,
+  CreateProduct201,
+  CreateProductBody,
+  CreateUser201,
+  CreateUserBody,
+  DeleteOrder204,
+  DeleteProduct204,
+  GetCouponById200,
+  GetCoupons200,
+  GetCouponsParams,
+  GetOrderById200,
+  GetOrders200,
+  GetOrdersByCustomer200,
+  GetOrdersByCustomerParams,
+  GetOrdersParams,
+  GetProductBySlug200,
+  GetProducts200,
+  GetProductsParams,
+  GetProfile200,
+  GetUsers200,
+  GetUsersParams,
+  RequestPasswordRecover201,
+  RequestPasswordRecoverBody,
+  ResetPassword204,
+  ResetPasswordBody,
+  UpdateCoupon204,
+  UpdateCouponBody,
+  UpdateOrder204,
+  UpdateOrderBody,
+  UpdateProduct204,
+  UpdateProductBody,
+  UpdateStatusCoupon204,
+  UpdateUser204,
+  UpdateUserBody,
+  ValidateCoupon200,
+  ValidateCouponBody
+} from './model';
+
+import { customInstanceMutator } from '../../utils/ky-client';
 /**
  * @summary Create product
  */
-export type postProductsResponse201 = {
-  data: PostProducts201
+export type createProductResponse201 = {
+  data: CreateProduct201
   status: 201
 }
     
-export type postProductsResponseSuccess = (postProductsResponse201) & {
+export type createProductResponseSuccess = (createProductResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postProductsResponse = (postProductsResponseSuccess)
+export type createProductResponse = (createProductResponseSuccess)
 
-export const getPostProductsUrl = () => {
+export const getCreateProductUrl = () => {
 
 
   
@@ -1080,15 +77,15 @@ export const getPostProductsUrl = () => {
   return `/products`
 }
 
-export const postProducts = async (postProductsBody: PostProductsBody, options?: RequestInit): Promise<postProductsResponse> => {
+export const createProduct = async (createProductBody: CreateProductBody, options?: RequestInit): Promise<createProductResponse> => {
   
-  return kyFetch<postProductsResponse>(getPostProductsUrl(),
+  return customInstanceMutator<createProductResponse>(getCreateProductUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postProductsBody,)
+      createProductBody,)
   }
 );}
 
@@ -1126,7 +123,7 @@ export const getGetProductsUrl = (params?: GetProductsParams,) => {
 
 export const getProducts = async (params?: GetProductsParams, options?: RequestInit): Promise<getProductsResponse> => {
   
-  return kyFetch<getProductsResponse>(getGetProductsUrl(params),
+  return customInstanceMutator<getProductsResponse>(getGetProductsUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -1140,19 +137,19 @@ export const getProducts = async (params?: GetProductsParams, options?: RequestI
 /**
  * @summary Get product by slug
  */
-export type getProductsSlugResponse200 = {
-  data: GetProductsSlug200
+export type getProductBySlugResponse200 = {
+  data: GetProductBySlug200
   status: 200
 }
     
-export type getProductsSlugResponseSuccess = (getProductsSlugResponse200) & {
+export type getProductBySlugResponseSuccess = (getProductBySlugResponse200) & {
   headers: Headers;
 };
 ;
 
-export type getProductsSlugResponse = (getProductsSlugResponseSuccess)
+export type getProductBySlugResponse = (getProductBySlugResponseSuccess)
 
-export const getGetProductsSlugUrl = (slug: string,) => {
+export const getGetProductBySlugUrl = (slug: string,) => {
 
 
   
@@ -1160,9 +157,9 @@ export const getGetProductsSlugUrl = (slug: string,) => {
   return `/products/${slug}`
 }
 
-export const getProductsSlug = async (slug: string, options?: RequestInit): Promise<getProductsSlugResponse> => {
+export const getProductBySlug = async (slug: string, options?: RequestInit): Promise<getProductBySlugResponse> => {
   
-  return kyFetch<getProductsSlugResponse>(getGetProductsSlugUrl(slug),
+  return customInstanceMutator<getProductBySlugResponse>(getGetProductBySlugUrl(slug),
   {      
     ...options,
     method: 'GET'
@@ -1176,19 +173,19 @@ export const getProductsSlug = async (slug: string, options?: RequestInit): Prom
 /**
  * @summary Update product
  */
-export type putProductsIdResponse204 = {
-  data: PutProductsId204
+export type updateProductResponse204 = {
+  data: UpdateProduct204
   status: 204
 }
     
-export type putProductsIdResponseSuccess = (putProductsIdResponse204) & {
+export type updateProductResponseSuccess = (updateProductResponse204) & {
   headers: Headers;
 };
 ;
 
-export type putProductsIdResponse = (putProductsIdResponseSuccess)
+export type updateProductResponse = (updateProductResponseSuccess)
 
-export const getPutProductsIdUrl = (id: string,) => {
+export const getUpdateProductUrl = (id: string,) => {
 
 
   
@@ -1196,16 +193,16 @@ export const getPutProductsIdUrl = (id: string,) => {
   return `/products/${id}`
 }
 
-export const putProductsId = async (id: string,
-    putProductsIdBody: PutProductsIdBody, options?: RequestInit): Promise<putProductsIdResponse> => {
+export const updateProduct = async (id: string,
+    updateProductBody: UpdateProductBody, options?: RequestInit): Promise<updateProductResponse> => {
   
-  return kyFetch<putProductsIdResponse>(getPutProductsIdUrl(id),
+  return customInstanceMutator<updateProductResponse>(getUpdateProductUrl(id),
   {      
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      putProductsIdBody,)
+      updateProductBody,)
   }
 );}
 
@@ -1214,19 +211,19 @@ export const putProductsId = async (id: string,
 /**
  * @summary Delete product
  */
-export type deleteProductsIdResponse204 = {
-  data: DeleteProductsId204
+export type deleteProductResponse204 = {
+  data: DeleteProduct204
   status: 204
 }
     
-export type deleteProductsIdResponseSuccess = (deleteProductsIdResponse204) & {
+export type deleteProductResponseSuccess = (deleteProductResponse204) & {
   headers: Headers;
 };
 ;
 
-export type deleteProductsIdResponse = (deleteProductsIdResponseSuccess)
+export type deleteProductResponse = (deleteProductResponseSuccess)
 
-export const getDeleteProductsIdUrl = (id: string,) => {
+export const getDeleteProductUrl = (id: string,) => {
 
 
   
@@ -1234,9 +231,9 @@ export const getDeleteProductsIdUrl = (id: string,) => {
   return `/products/${id}`
 }
 
-export const deleteProductsId = async (id: string, options?: RequestInit): Promise<deleteProductsIdResponse> => {
+export const deleteProduct = async (id: string, options?: RequestInit): Promise<deleteProductResponse> => {
   
-  return kyFetch<deleteProductsIdResponse>(getDeleteProductsIdUrl(id),
+  return customInstanceMutator<deleteProductResponse>(getDeleteProductUrl(id),
   {      
     ...options,
     method: 'DELETE'
@@ -1250,19 +247,19 @@ export const deleteProductsId = async (id: string, options?: RequestInit): Promi
 /**
  * @summary Create order
  */
-export type postOrdersResponse201 = {
-  data: PostOrders201
+export type createOrderResponse201 = {
+  data: CreateOrder201
   status: 201
 }
     
-export type postOrdersResponseSuccess = (postOrdersResponse201) & {
+export type createOrderResponseSuccess = (createOrderResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postOrdersResponse = (postOrdersResponseSuccess)
+export type createOrderResponse = (createOrderResponseSuccess)
 
-export const getPostOrdersUrl = () => {
+export const getCreateOrderUrl = () => {
 
 
   
@@ -1270,15 +267,15 @@ export const getPostOrdersUrl = () => {
   return `/orders`
 }
 
-export const postOrders = async (postOrdersBody: PostOrdersBody, options?: RequestInit): Promise<postOrdersResponse> => {
+export const createOrder = async (createOrderBody: CreateOrderBody, options?: RequestInit): Promise<createOrderResponse> => {
   
-  return kyFetch<postOrdersResponse>(getPostOrdersUrl(),
+  return customInstanceMutator<createOrderResponse>(getCreateOrderUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postOrdersBody,)
+      createOrderBody,)
   }
 );}
 
@@ -1316,7 +313,7 @@ export const getGetOrdersUrl = (params?: GetOrdersParams,) => {
 
 export const getOrders = async (params?: GetOrdersParams, options?: RequestInit): Promise<getOrdersResponse> => {
   
-  return kyFetch<getOrdersResponse>(getGetOrdersUrl(params),
+  return customInstanceMutator<getOrdersResponse>(getGetOrdersUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -1330,19 +327,19 @@ export const getOrders = async (params?: GetOrdersParams, options?: RequestInit)
 /**
  * @summary Update order
  */
-export type putOrdersIdResponse204 = {
-  data: PutOrdersId204
+export type updateOrderResponse204 = {
+  data: UpdateOrder204
   status: 204
 }
     
-export type putOrdersIdResponseSuccess = (putOrdersIdResponse204) & {
+export type updateOrderResponseSuccess = (updateOrderResponse204) & {
   headers: Headers;
 };
 ;
 
-export type putOrdersIdResponse = (putOrdersIdResponseSuccess)
+export type updateOrderResponse = (updateOrderResponseSuccess)
 
-export const getPutOrdersIdUrl = (id: string,) => {
+export const getUpdateOrderUrl = (id: string,) => {
 
 
   
@@ -1350,16 +347,16 @@ export const getPutOrdersIdUrl = (id: string,) => {
   return `/orders/${id}`
 }
 
-export const putOrdersId = async (id: string,
-    putOrdersIdBody: PutOrdersIdBody, options?: RequestInit): Promise<putOrdersIdResponse> => {
+export const updateOrder = async (id: string,
+    updateOrderBody: UpdateOrderBody, options?: RequestInit): Promise<updateOrderResponse> => {
   
-  return kyFetch<putOrdersIdResponse>(getPutOrdersIdUrl(id),
+  return customInstanceMutator<updateOrderResponse>(getUpdateOrderUrl(id),
   {      
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      putOrdersIdBody,)
+      updateOrderBody,)
   }
 );}
 
@@ -1368,19 +365,19 @@ export const putOrdersId = async (id: string,
 /**
  * @summary Delete an order
  */
-export type deleteOrdersIdResponse204 = {
-  data: DeleteOrdersId204
+export type deleteOrderResponse204 = {
+  data: DeleteOrder204
   status: 204
 }
     
-export type deleteOrdersIdResponseSuccess = (deleteOrdersIdResponse204) & {
+export type deleteOrderResponseSuccess = (deleteOrderResponse204) & {
   headers: Headers;
 };
 ;
 
-export type deleteOrdersIdResponse = (deleteOrdersIdResponseSuccess)
+export type deleteOrderResponse = (deleteOrderResponseSuccess)
 
-export const getDeleteOrdersIdUrl = (id: string,) => {
+export const getDeleteOrderUrl = (id: string,) => {
 
 
   
@@ -1388,9 +385,9 @@ export const getDeleteOrdersIdUrl = (id: string,) => {
   return `/orders/${id}`
 }
 
-export const deleteOrdersId = async (id: string, options?: RequestInit): Promise<deleteOrdersIdResponse> => {
+export const deleteOrder = async (id: string, options?: RequestInit): Promise<deleteOrderResponse> => {
   
-  return kyFetch<deleteOrdersIdResponse>(getDeleteOrdersIdUrl(id),
+  return customInstanceMutator<deleteOrderResponse>(getDeleteOrderUrl(id),
   {      
     ...options,
     method: 'DELETE'
@@ -1404,19 +401,19 @@ export const deleteOrdersId = async (id: string, options?: RequestInit): Promise
 /**
  * @summary Get order by ID
  */
-export type getOrdersIdResponse200 = {
-  data: GetOrdersId200
+export type getOrderByIdResponse200 = {
+  data: GetOrderById200
   status: 200
 }
     
-export type getOrdersIdResponseSuccess = (getOrdersIdResponse200) & {
+export type getOrderByIdResponseSuccess = (getOrderByIdResponse200) & {
   headers: Headers;
 };
 ;
 
-export type getOrdersIdResponse = (getOrdersIdResponseSuccess)
+export type getOrderByIdResponse = (getOrderByIdResponseSuccess)
 
-export const getGetOrdersIdUrl = (id: string,) => {
+export const getGetOrderByIdUrl = (id: string,) => {
 
 
   
@@ -1424,9 +421,9 @@ export const getGetOrdersIdUrl = (id: string,) => {
   return `/orders/${id}`
 }
 
-export const getOrdersId = async (id: string, options?: RequestInit): Promise<getOrdersIdResponse> => {
+export const getOrderById = async (id: string, options?: RequestInit): Promise<getOrderByIdResponse> => {
   
-  return kyFetch<getOrdersIdResponse>(getGetOrdersIdUrl(id),
+  return customInstanceMutator<getOrderByIdResponse>(getGetOrderByIdUrl(id),
   {      
     ...options,
     method: 'GET'
@@ -1440,19 +437,19 @@ export const getOrdersId = async (id: string, options?: RequestInit): Promise<ge
 /**
  * @summary Get customer orders
  */
-export type getOrdersCustomerResponse200 = {
-  data: GetOrdersCustomer200
+export type getOrdersByCustomerResponse200 = {
+  data: GetOrdersByCustomer200
   status: 200
 }
     
-export type getOrdersCustomerResponseSuccess = (getOrdersCustomerResponse200) & {
+export type getOrdersByCustomerResponseSuccess = (getOrdersByCustomerResponse200) & {
   headers: Headers;
 };
 ;
 
-export type getOrdersCustomerResponse = (getOrdersCustomerResponseSuccess)
+export type getOrdersByCustomerResponse = (getOrdersByCustomerResponseSuccess)
 
-export const getGetOrdersCustomerUrl = (params?: GetOrdersCustomerParams,) => {
+export const getGetOrdersByCustomerUrl = (params?: GetOrdersByCustomerParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -1467,9 +464,9 @@ export const getGetOrdersCustomerUrl = (params?: GetOrdersCustomerParams,) => {
   return stringifiedParams.length > 0 ? `/orders/customer?${stringifiedParams}` : `/orders/customer`
 }
 
-export const getOrdersCustomer = async (params?: GetOrdersCustomerParams, options?: RequestInit): Promise<getOrdersCustomerResponse> => {
+export const getOrdersByCustomer = async (params?: GetOrdersByCustomerParams, options?: RequestInit): Promise<getOrdersByCustomerResponse> => {
   
-  return kyFetch<getOrdersCustomerResponse>(getGetOrdersCustomerUrl(params),
+  return customInstanceMutator<getOrdersByCustomerResponse>(getGetOrdersByCustomerUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -1483,19 +480,19 @@ export const getOrdersCustomer = async (params?: GetOrdersCustomerParams, option
 /**
  * @summary Create user
  */
-export type postUserResponse201 = {
-  data: PostUser201
+export type createUserResponse201 = {
+  data: CreateUser201
   status: 201
 }
     
-export type postUserResponseSuccess = (postUserResponse201) & {
+export type createUserResponseSuccess = (createUserResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postUserResponse = (postUserResponseSuccess)
+export type createUserResponse = (createUserResponseSuccess)
 
-export const getPostUserUrl = () => {
+export const getCreateUserUrl = () => {
 
 
   
@@ -1503,15 +500,15 @@ export const getPostUserUrl = () => {
   return `/user`
 }
 
-export const postUser = async (postUserBody: PostUserBody, options?: RequestInit): Promise<postUserResponse> => {
+export const createUser = async (createUserBody: CreateUserBody, options?: RequestInit): Promise<createUserResponse> => {
   
-  return kyFetch<postUserResponse>(getPostUserUrl(),
+  return customInstanceMutator<createUserResponse>(getCreateUserUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postUserBody,)
+      createUserBody,)
   }
 );}
 
@@ -1520,19 +517,19 @@ export const postUser = async (postUserBody: PostUserBody, options?: RequestInit
 /**
  * @summary Update user
  */
-export type putUserResponse204 = {
-  data: PutUser204
+export type updateUserResponse204 = {
+  data: UpdateUser204
   status: 204
 }
     
-export type putUserResponseSuccess = (putUserResponse204) & {
+export type updateUserResponseSuccess = (updateUserResponse204) & {
   headers: Headers;
 };
 ;
 
-export type putUserResponse = (putUserResponseSuccess)
+export type updateUserResponse = (updateUserResponseSuccess)
 
-export const getPutUserUrl = () => {
+export const getUpdateUserUrl = () => {
 
 
   
@@ -1540,15 +537,15 @@ export const getPutUserUrl = () => {
   return `/user`
 }
 
-export const putUser = async (putUserBody: PutUserBody, options?: RequestInit): Promise<putUserResponse> => {
+export const updateUser = async (updateUserBody: UpdateUserBody, options?: RequestInit): Promise<updateUserResponse> => {
   
-  return kyFetch<putUserResponse>(getPutUserUrl(),
+  return customInstanceMutator<updateUserResponse>(getUpdateUserUrl(),
   {      
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      putUserBody,)
+      updateUserBody,)
   }
 );}
 
@@ -1579,7 +576,7 @@ export const getGetProfileUrl = () => {
 
 export const getProfile = async ( options?: RequestInit): Promise<getProfileResponse> => {
   
-  return kyFetch<getProfileResponse>(getGetProfileUrl(),
+  return customInstanceMutator<getProfileResponse>(getGetProfileUrl(),
   {      
     ...options,
     method: 'GET'
@@ -1622,7 +619,7 @@ export const getGetUsersUrl = (params?: GetUsersParams,) => {
 
 export const getUsers = async (params?: GetUsersParams, options?: RequestInit): Promise<getUsersResponse> => {
   
-  return kyFetch<getUsersResponse>(getGetUsersUrl(params),
+  return customInstanceMutator<getUsersResponse>(getGetUsersUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -1636,19 +633,19 @@ export const getUsers = async (params?: GetUsersParams, options?: RequestInit): 
 /**
  * @summary Password Reset.
  */
-export type postPasswordResetResponse204 = {
-  data: PostPasswordReset204
+export type resetPasswordResponse204 = {
+  data: ResetPassword204
   status: 204
 }
     
-export type postPasswordResetResponseSuccess = (postPasswordResetResponse204) & {
+export type resetPasswordResponseSuccess = (resetPasswordResponse204) & {
   headers: Headers;
 };
 ;
 
-export type postPasswordResetResponse = (postPasswordResetResponseSuccess)
+export type resetPasswordResponse = (resetPasswordResponseSuccess)
 
-export const getPostPasswordResetUrl = () => {
+export const getResetPasswordUrl = () => {
 
 
   
@@ -1656,15 +653,15 @@ export const getPostPasswordResetUrl = () => {
   return `/password/reset`
 }
 
-export const postPasswordReset = async (postPasswordResetBody: PostPasswordResetBody, options?: RequestInit): Promise<postPasswordResetResponse> => {
+export const resetPassword = async (resetPasswordBody: ResetPasswordBody, options?: RequestInit): Promise<resetPasswordResponse> => {
   
-  return kyFetch<postPasswordResetResponse>(getPostPasswordResetUrl(),
+  return customInstanceMutator<resetPasswordResponse>(getResetPasswordUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postPasswordResetBody,)
+      resetPasswordBody,)
   }
 );}
 
@@ -1673,19 +670,19 @@ export const postPasswordReset = async (postPasswordResetBody: PostPasswordReset
 /**
  * @summary Password Recover.
  */
-export type postPasswordRecoverResponse201 = {
-  data: PostPasswordRecover201
+export type requestPasswordRecoverResponse201 = {
+  data: RequestPasswordRecover201
   status: 201
 }
     
-export type postPasswordRecoverResponseSuccess = (postPasswordRecoverResponse201) & {
+export type requestPasswordRecoverResponseSuccess = (requestPasswordRecoverResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postPasswordRecoverResponse = (postPasswordRecoverResponseSuccess)
+export type requestPasswordRecoverResponse = (requestPasswordRecoverResponseSuccess)
 
-export const getPostPasswordRecoverUrl = () => {
+export const getRequestPasswordRecoverUrl = () => {
 
 
   
@@ -1693,15 +690,15 @@ export const getPostPasswordRecoverUrl = () => {
   return `/password/recover`
 }
 
-export const postPasswordRecover = async (postPasswordRecoverBody: PostPasswordRecoverBody, options?: RequestInit): Promise<postPasswordRecoverResponse> => {
+export const requestPasswordRecover = async (requestPasswordRecoverBody: RequestPasswordRecoverBody, options?: RequestInit): Promise<requestPasswordRecoverResponse> => {
   
-  return kyFetch<postPasswordRecoverResponse>(getPostPasswordRecoverUrl(),
+  return customInstanceMutator<requestPasswordRecoverResponse>(getRequestPasswordRecoverUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postPasswordRecoverBody,)
+      requestPasswordRecoverBody,)
   }
 );}
 
@@ -1710,19 +707,19 @@ export const postPasswordRecover = async (postPasswordRecoverBody: PostPasswordR
 /**
  * @summary Authenticate with Google.
  */
-export type postSessionsGoogleResponse201 = {
-  data: PostSessionsGoogle201
+export type authenticateWithGoogleResponse201 = {
+  data: AuthenticateWithGoogle201
   status: 201
 }
     
-export type postSessionsGoogleResponseSuccess = (postSessionsGoogleResponse201) & {
+export type authenticateWithGoogleResponseSuccess = (authenticateWithGoogleResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postSessionsGoogleResponse = (postSessionsGoogleResponseSuccess)
+export type authenticateWithGoogleResponse = (authenticateWithGoogleResponseSuccess)
 
-export const getPostSessionsGoogleUrl = () => {
+export const getAuthenticateWithGoogleUrl = () => {
 
 
   
@@ -1730,15 +727,15 @@ export const getPostSessionsGoogleUrl = () => {
   return `/sessions/google`
 }
 
-export const postSessionsGoogle = async (postSessionsGoogleBody: PostSessionsGoogleBody, options?: RequestInit): Promise<postSessionsGoogleResponse> => {
+export const authenticateWithGoogle = async (authenticateWithGoogleBody: AuthenticateWithGoogleBody, options?: RequestInit): Promise<authenticateWithGoogleResponse> => {
   
-  return kyFetch<postSessionsGoogleResponse>(getPostSessionsGoogleUrl(),
+  return customInstanceMutator<authenticateWithGoogleResponse>(getAuthenticateWithGoogleUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postSessionsGoogleBody,)
+      authenticateWithGoogleBody,)
   }
 );}
 
@@ -1747,19 +744,19 @@ export const postSessionsGoogle = async (postSessionsGoogleBody: PostSessionsGoo
 /**
  * @summary Authenticate with e-mail & password.
  */
-export type postSessionsPasswordResponse201 = {
-  data: PostSessionsPassword201
+export type authenticateWithPasswordResponse201 = {
+  data: AuthenticateWithPassword201
   status: 201
 }
     
-export type postSessionsPasswordResponseSuccess = (postSessionsPasswordResponse201) & {
+export type authenticateWithPasswordResponseSuccess = (authenticateWithPasswordResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postSessionsPasswordResponse = (postSessionsPasswordResponseSuccess)
+export type authenticateWithPasswordResponse = (authenticateWithPasswordResponseSuccess)
 
-export const getPostSessionsPasswordUrl = () => {
+export const getAuthenticateWithPasswordUrl = () => {
 
 
   
@@ -1767,15 +764,15 @@ export const getPostSessionsPasswordUrl = () => {
   return `/sessions/password`
 }
 
-export const postSessionsPassword = async (postSessionsPasswordBody: PostSessionsPasswordBody, options?: RequestInit): Promise<postSessionsPasswordResponse> => {
+export const authenticateWithPassword = async (authenticateWithPasswordBody: AuthenticateWithPasswordBody, options?: RequestInit): Promise<authenticateWithPasswordResponse> => {
   
-  return kyFetch<postSessionsPasswordResponse>(getPostSessionsPasswordUrl(),
+  return customInstanceMutator<authenticateWithPasswordResponse>(getAuthenticateWithPasswordUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postSessionsPasswordBody,)
+      authenticateWithPasswordBody,)
   }
 );}
 
@@ -1784,19 +781,19 @@ export const postSessionsPassword = async (postSessionsPasswordBody: PostSession
 /**
  * @summary Checkout cart
  */
-export type postCartCheckoutResponse200 = {
-  data: PostCartCheckout200
+export type checkoutResponse200 = {
+  data: Checkout200
   status: 200
 }
     
-export type postCartCheckoutResponseSuccess = (postCartCheckoutResponse200) & {
+export type checkoutResponseSuccess = (checkoutResponse200) & {
   headers: Headers;
 };
 ;
 
-export type postCartCheckoutResponse = (postCartCheckoutResponseSuccess)
+export type checkoutResponse = (checkoutResponseSuccess)
 
-export const getPostCartCheckoutUrl = () => {
+export const getCheckoutUrl = () => {
 
 
   
@@ -1804,15 +801,15 @@ export const getPostCartCheckoutUrl = () => {
   return `/cart/checkout`
 }
 
-export const postCartCheckout = async (postCartCheckoutBody: PostCartCheckoutBody, options?: RequestInit): Promise<postCartCheckoutResponse> => {
+export const checkout = async (checkoutBody: CheckoutBody, options?: RequestInit): Promise<checkoutResponse> => {
   
-  return kyFetch<postCartCheckoutResponse>(getPostCartCheckoutUrl(),
+  return customInstanceMutator<checkoutResponse>(getCheckoutUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postCartCheckoutBody,)
+      checkoutBody,)
   }
 );}
 
@@ -1821,19 +818,19 @@ export const postCartCheckout = async (postCartCheckoutBody: PostCartCheckoutBod
 /**
  * @summary Create coupon
  */
-export type postCouponsResponse201 = {
-  data: PostCoupons201
+export type createCouponResponse201 = {
+  data: CreateCoupon201
   status: 201
 }
     
-export type postCouponsResponseSuccess = (postCouponsResponse201) & {
+export type createCouponResponseSuccess = (createCouponResponse201) & {
   headers: Headers;
 };
 ;
 
-export type postCouponsResponse = (postCouponsResponseSuccess)
+export type createCouponResponse = (createCouponResponseSuccess)
 
-export const getPostCouponsUrl = () => {
+export const getCreateCouponUrl = () => {
 
 
   
@@ -1841,15 +838,15 @@ export const getPostCouponsUrl = () => {
   return `/coupons`
 }
 
-export const postCoupons = async (postCouponsBody: PostCouponsBody, options?: RequestInit): Promise<postCouponsResponse> => {
+export const createCoupon = async (createCouponBody: CreateCouponBody, options?: RequestInit): Promise<createCouponResponse> => {
   
-  return kyFetch<postCouponsResponse>(getPostCouponsUrl(),
+  return customInstanceMutator<createCouponResponse>(getCreateCouponUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postCouponsBody,)
+      createCouponBody,)
   }
 );}
 
@@ -1887,7 +884,7 @@ export const getGetCouponsUrl = (params?: GetCouponsParams,) => {
 
 export const getCoupons = async (params?: GetCouponsParams, options?: RequestInit): Promise<getCouponsResponse> => {
   
-  return kyFetch<getCouponsResponse>(getGetCouponsUrl(params),
+  return customInstanceMutator<getCouponsResponse>(getGetCouponsUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -1901,19 +898,19 @@ export const getCoupons = async (params?: GetCouponsParams, options?: RequestIni
 /**
  * @summary Update coupon
  */
-export type putCouponsIdResponse204 = {
-  data: PutCouponsId204
+export type updateCouponResponse204 = {
+  data: UpdateCoupon204
   status: 204
 }
     
-export type putCouponsIdResponseSuccess = (putCouponsIdResponse204) & {
+export type updateCouponResponseSuccess = (updateCouponResponse204) & {
   headers: Headers;
 };
 ;
 
-export type putCouponsIdResponse = (putCouponsIdResponseSuccess)
+export type updateCouponResponse = (updateCouponResponseSuccess)
 
-export const getPutCouponsIdUrl = (id: string,) => {
+export const getUpdateCouponUrl = (id: string,) => {
 
 
   
@@ -1921,16 +918,16 @@ export const getPutCouponsIdUrl = (id: string,) => {
   return `/coupons/${id}`
 }
 
-export const putCouponsId = async (id: string,
-    putCouponsIdBody: PutCouponsIdBody, options?: RequestInit): Promise<putCouponsIdResponse> => {
+export const updateCoupon = async (id: string,
+    updateCouponBody: UpdateCouponBody, options?: RequestInit): Promise<updateCouponResponse> => {
   
-  return kyFetch<putCouponsIdResponse>(getPutCouponsIdUrl(id),
+  return customInstanceMutator<updateCouponResponse>(getUpdateCouponUrl(id),
   {      
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      putCouponsIdBody,)
+      updateCouponBody,)
   }
 );}
 
@@ -1939,19 +936,19 @@ export const putCouponsId = async (id: string,
 /**
  * @summary Delete coupon
  */
-export type deleteCouponsIdResponse200 = {
+export type deleteCouponResponse200 = {
   data: void
   status: 200
 }
     
-export type deleteCouponsIdResponseSuccess = (deleteCouponsIdResponse200) & {
+export type deleteCouponResponseSuccess = (deleteCouponResponse200) & {
   headers: Headers;
 };
 ;
 
-export type deleteCouponsIdResponse = (deleteCouponsIdResponseSuccess)
+export type deleteCouponResponse = (deleteCouponResponseSuccess)
 
-export const getDeleteCouponsIdUrl = (id: string,) => {
+export const getDeleteCouponUrl = (id: string,) => {
 
 
   
@@ -1959,9 +956,9 @@ export const getDeleteCouponsIdUrl = (id: string,) => {
   return `/coupons/${id}`
 }
 
-export const deleteCouponsId = async (id: string, options?: RequestInit): Promise<deleteCouponsIdResponse> => {
+export const deleteCoupon = async (id: string, options?: RequestInit): Promise<deleteCouponResponse> => {
   
-  return kyFetch<deleteCouponsIdResponse>(getDeleteCouponsIdUrl(id),
+  return customInstanceMutator<deleteCouponResponse>(getDeleteCouponUrl(id),
   {      
     ...options,
     method: 'DELETE'
@@ -1975,19 +972,19 @@ export const deleteCouponsId = async (id: string, options?: RequestInit): Promis
 /**
  * @summary Get coupon by id
  */
-export type getCouponsIdResponse200 = {
-  data: GetCouponsId200
+export type getCouponByIdResponse200 = {
+  data: GetCouponById200
   status: 200
 }
     
-export type getCouponsIdResponseSuccess = (getCouponsIdResponse200) & {
+export type getCouponByIdResponseSuccess = (getCouponByIdResponse200) & {
   headers: Headers;
 };
 ;
 
-export type getCouponsIdResponse = (getCouponsIdResponseSuccess)
+export type getCouponByIdResponse = (getCouponByIdResponseSuccess)
 
-export const getGetCouponsIdUrl = (id: string,) => {
+export const getGetCouponByIdUrl = (id: string,) => {
 
 
   
@@ -1995,9 +992,9 @@ export const getGetCouponsIdUrl = (id: string,) => {
   return `/coupons/${id}`
 }
 
-export const getCouponsId = async (id: string, options?: RequestInit): Promise<getCouponsIdResponse> => {
+export const getCouponById = async (id: string, options?: RequestInit): Promise<getCouponByIdResponse> => {
   
-  return kyFetch<getCouponsIdResponse>(getGetCouponsIdUrl(id),
+  return customInstanceMutator<getCouponByIdResponse>(getGetCouponByIdUrl(id),
   {      
     ...options,
     method: 'GET'
@@ -2011,19 +1008,19 @@ export const getCouponsId = async (id: string, options?: RequestInit): Promise<g
 /**
  * @summary Validate coupon
  */
-export type postCouponsValidateResponse200 = {
-  data: PostCouponsValidate200
+export type validateCouponResponse200 = {
+  data: ValidateCoupon200
   status: 200
 }
     
-export type postCouponsValidateResponseSuccess = (postCouponsValidateResponse200) & {
+export type validateCouponResponseSuccess = (validateCouponResponse200) & {
   headers: Headers;
 };
 ;
 
-export type postCouponsValidateResponse = (postCouponsValidateResponseSuccess)
+export type validateCouponResponse = (validateCouponResponseSuccess)
 
-export const getPostCouponsValidateUrl = () => {
+export const getValidateCouponUrl = () => {
 
 
   
@@ -2031,15 +1028,15 @@ export const getPostCouponsValidateUrl = () => {
   return `/coupons/validate`
 }
 
-export const postCouponsValidate = async (postCouponsValidateBody: PostCouponsValidateBody, options?: RequestInit): Promise<postCouponsValidateResponse> => {
+export const validateCoupon = async (validateCouponBody: ValidateCouponBody, options?: RequestInit): Promise<validateCouponResponse> => {
   
-  return kyFetch<postCouponsValidateResponse>(getPostCouponsValidateUrl(),
+  return customInstanceMutator<validateCouponResponse>(getValidateCouponUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      postCouponsValidateBody,)
+      validateCouponBody,)
   }
 );}
 
@@ -2048,19 +1045,19 @@ export const postCouponsValidate = async (postCouponsValidateBody: PostCouponsVa
 /**
  * @summary Cancel coupon
  */
-export type patchCouponsIdStatusResponse204 = {
-  data: PatchCouponsIdStatus204
+export type updateStatusCouponResponse204 = {
+  data: UpdateStatusCoupon204
   status: 204
 }
     
-export type patchCouponsIdStatusResponseSuccess = (patchCouponsIdStatusResponse204) & {
+export type updateStatusCouponResponseSuccess = (updateStatusCouponResponse204) & {
   headers: Headers;
 };
 ;
 
-export type patchCouponsIdStatusResponse = (patchCouponsIdStatusResponseSuccess)
+export type updateStatusCouponResponse = (updateStatusCouponResponseSuccess)
 
-export const getPatchCouponsIdStatusUrl = (id: string,) => {
+export const getUpdateStatusCouponUrl = (id: string,) => {
 
 
   
@@ -2068,9 +1065,9 @@ export const getPatchCouponsIdStatusUrl = (id: string,) => {
   return `/coupons/${id}/status`
 }
 
-export const patchCouponsIdStatus = async (id: string, options?: RequestInit): Promise<patchCouponsIdStatusResponse> => {
+export const updateStatusCoupon = async (id: string, options?: RequestInit): Promise<updateStatusCouponResponse> => {
   
-  return kyFetch<patchCouponsIdStatusResponse>(getPatchCouponsIdStatusUrl(id),
+  return customInstanceMutator<updateStatusCouponResponse>(getUpdateStatusCouponUrl(id),
   {      
     ...options,
     method: 'PATCH'

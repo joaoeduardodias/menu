@@ -1,6 +1,6 @@
-import { SignupForm } from "@/components/sign-up-form"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { SignupForm } from "./components/sign-up-form"
 
 export const metadata: Metadata = {
   title: "Cadastro",
@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function SignupPage() {
+
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center md:text-left">
