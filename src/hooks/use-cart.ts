@@ -7,6 +7,8 @@ import { persist } from "zustand/middleware"
 interface CartStore {
   items: CartItem[]
   isOpen: boolean
+  orderType: "delivery" | "pickup" | "dine-in"
+  setOrderType: (type: "delivery" | "pickup" | "dine-in") => void
   addItem: (product: Product) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
@@ -15,6 +17,7 @@ interface CartStore {
   openCart: () => void
   closeCart: () => void
   total: number
+  deliveryFree: number
 }
 
 export const useCart = create<CartStore>()(
@@ -23,6 +26,8 @@ export const useCart = create<CartStore>()(
       items: [],
       total: 0,
       isOpen: false,
+      orderType: "delivery",
+      deliveryFree: 5,
 
       addItem: (product: Product) => {
         const items = get().items
@@ -36,7 +41,6 @@ export const useCart = create<CartStore>()(
           set({ items: [...items, { ...product, quantity: 1 }] })
         }
 
-        // Atualizar total
         const newItems = get().items
         const total = newItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
         set({ total })
@@ -69,6 +73,12 @@ export const useCart = create<CartStore>()(
       toggleCart: () => set({ isOpen: !get().isOpen }),
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
+      setOrderType: (type: "delivery" | "pickup" | "dine-in") => {
+        set({
+          orderType: type,
+          deliveryFree: type === "delivery" ? 5 : 0,
+        })
+      },
     }),
     {
       name: "cart-storage",

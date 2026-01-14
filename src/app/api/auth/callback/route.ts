@@ -1,4 +1,4 @@
-import { postSessionsGoogle } from "@/lib/api/generated";
+import { authenticateWithGoogle } from '@/lib/api/generated';
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Google OAuth code was note found." }, { status: 400 })
   }
 
-  const { data } = await postSessionsGoogle({ code })
+  const { data } = await authenticateWithGoogle({ code })
   const token = data.token
   const cookiesStore = await cookies()
   cookiesStore.set('token', token, {

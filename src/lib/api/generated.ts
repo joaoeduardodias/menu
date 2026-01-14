@@ -12,6 +12,8 @@ import type {
   AuthenticateWithPasswordBody,
   Checkout200,
   CheckoutBody,
+  CreateAddress201,
+  CreateAddressBody,
   CreateCoupon201,
   CreateCouponBody,
   CreateOrder201,
@@ -22,6 +24,9 @@ import type {
   CreateUserBody,
   DeleteOrder204,
   DeleteProduct204,
+  GetAddressById200,
+  GetAddresses200,
+  GetAddressesByUser200,
   GetCouponById200,
   GetCoupons200,
   GetCouponsParams,
@@ -40,6 +45,8 @@ import type {
   RequestPasswordRecoverBody,
   ResetPassword204,
   ResetPasswordBody,
+  UpdateAddress204,
+  UpdateAddressBody,
   UpdateCoupon204,
   UpdateCouponBody,
   UpdateOrder204,
@@ -1071,6 +1078,225 @@ export const updateStatusCoupon = async (id: string, options?: RequestInit): Pro
   {      
     ...options,
     method: 'PATCH'
+    
+    
+  }
+);}
+
+
+
+/**
+ * @summary Create address
+ */
+export type createAddressResponse201 = {
+  data: CreateAddress201
+  status: 201
+}
+    
+export type createAddressResponseSuccess = (createAddressResponse201) & {
+  headers: Headers;
+};
+;
+
+export type createAddressResponse = (createAddressResponseSuccess)
+
+export const getCreateAddressUrl = () => {
+
+
+  
+
+  return `/address`
+}
+
+export const createAddress = async (createAddressBody: CreateAddressBody, options?: RequestInit): Promise<createAddressResponse> => {
+  
+  return customInstanceMutator<createAddressResponse>(getCreateAddressUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createAddressBody,)
+  }
+);}
+
+
+
+/**
+ * @summary Delete address
+ */
+export type deleteAddressResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type deleteAddressResponseSuccess = (deleteAddressResponse200) & {
+  headers: Headers;
+};
+;
+
+export type deleteAddressResponse = (deleteAddressResponseSuccess)
+
+export const getDeleteAddressUrl = (id: string,) => {
+
+
+  
+
+  return `/addresses/${id}`
+}
+
+export const deleteAddress = async (id: string, options?: RequestInit): Promise<deleteAddressResponse> => {
+  
+  return customInstanceMutator<deleteAddressResponse>(getDeleteAddressUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
+
+
+
+/**
+ * @summary Update address
+ */
+export type updateAddressResponse204 = {
+  data: UpdateAddress204
+  status: 204
+}
+    
+export type updateAddressResponseSuccess = (updateAddressResponse204) & {
+  headers: Headers;
+};
+;
+
+export type updateAddressResponse = (updateAddressResponseSuccess)
+
+export const getUpdateAddressUrl = (id: string,) => {
+
+
+  
+
+  return `/addresses/${id}`
+}
+
+export const updateAddress = async (id: string,
+    updateAddressBody: UpdateAddressBody, options?: RequestInit): Promise<updateAddressResponse> => {
+  
+  return customInstanceMutator<updateAddressResponse>(getUpdateAddressUrl(id),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateAddressBody,)
+  }
+);}
+
+
+
+/**
+ * @summary Get address by ID
+ */
+export type getAddressByIdResponse200 = {
+  data: GetAddressById200
+  status: 200
+}
+    
+export type getAddressByIdResponseSuccess = (getAddressByIdResponse200) & {
+  headers: Headers;
+};
+;
+
+export type getAddressByIdResponse = (getAddressByIdResponseSuccess)
+
+export const getGetAddressByIdUrl = (id: string,) => {
+
+
+  
+
+  return `/addresses/${id}`
+}
+
+export const getAddressById = async (id: string, options?: RequestInit): Promise<getAddressByIdResponse> => {
+  
+  return customInstanceMutator<getAddressByIdResponse>(getGetAddressByIdUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+/**
+ * @summary Get user addresses
+ */
+export type getAddressesResponse200 = {
+  data: GetAddresses200
+  status: 200
+}
+    
+export type getAddressesResponseSuccess = (getAddressesResponse200) & {
+  headers: Headers;
+};
+;
+
+export type getAddressesResponse = (getAddressesResponseSuccess)
+
+export const getGetAddressesUrl = () => {
+
+
+  
+
+  return `/addresses`
+}
+
+export const getAddresses = async ( options?: RequestInit): Promise<getAddressesResponse> => {
+  
+  return customInstanceMutator<getAddressesResponse>(getGetAddressesUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+/**
+ * @summary Get address by User
+ */
+export type getAddressesByUserResponse200 = {
+  data: GetAddressesByUser200
+  status: 200
+}
+    
+export type getAddressesByUserResponseSuccess = (getAddressesByUserResponse200) & {
+  headers: Headers;
+};
+;
+
+export type getAddressesByUserResponse = (getAddressesByUserResponseSuccess)
+
+export const getGetAddressesByUserUrl = () => {
+
+
+  
+
+  return `/user/addresses`
+}
+
+export const getAddressesByUser = async ( options?: RequestInit): Promise<getAddressesByUserResponse> => {
+  
+  return customInstanceMutator<getAddressesByUserResponse>(getGetAddressesByUserUrl(),
+  {      
+    ...options,
+    method: 'GET'
     
     
   }
